@@ -1,0 +1,331 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- 主机： 127.0.0.1
+-- 生成日期： 2019-07-09 21:06:41
+-- 服务器版本： 10.3.16-MariaDB
+-- PHP 版本： 7.3.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 数据库： `校友信息管理系统`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `个人捐赠`
+--
+
+CREATE TABLE `个人捐赠` (
+  `捐赠物` varchar(255) NOT NULL,
+  `捐赠日期` date NOT NULL,
+  `捐赠校友学号` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `会长`
+--
+
+CREATE TABLE `会长` (
+  `姓名` varchar(255) NOT NULL,
+  `地址` varchar(255) NOT NULL,
+  `联系方式` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `会长`
+--
+
+INSERT INTO `会长` (`姓名`, `地址`, `联系方式`) VALUES
+('1', '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `学生`
+--
+
+CREATE TABLE `学生` (
+  `学号` int(10) NOT NULL,
+  `密码` varchar(255) DEFAULT NULL,
+  `姓名` varchar(255) DEFAULT NULL,
+  `院系` varchar(255) DEFAULT NULL,
+  `入读年份` int(4) DEFAULT NULL,
+  `邮箱` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `捐赠新闻`
+--
+
+CREATE TABLE `捐赠新闻` (
+  `新闻标题` varchar(255) NOT NULL,
+  `新闻日期` date NOT NULL,
+  `捐赠物` varchar(255) NOT NULL,
+  `捐赠日期` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `捐赠记录`
+--
+
+CREATE TABLE `捐赠记录` (
+  `捐赠物` varchar(255) NOT NULL,
+  `捐赠日期` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `新闻`
+--
+
+CREATE TABLE `新闻` (
+  `标题` varchar(255) NOT NULL,
+  `时间` date NOT NULL,
+  `内容` longtext DEFAULT NULL,
+  `发布校会名称` varchar(255) DEFAULT NULL,
+  `发布校会地区` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `校会捐赠`
+--
+
+CREATE TABLE `校会捐赠` (
+  `捐赠物` varchar(255) NOT NULL,
+  `捐赠日期` date NOT NULL,
+  `捐赠校会名称` varchar(255) NOT NULL,
+  `捐赠校会地区` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `校友`
+--
+
+CREATE TABLE `校友` (
+  `学号` int(10) NOT NULL,
+  `密码` varchar(255) DEFAULT NULL,
+  `姓名` varchar(255) DEFAULT NULL,
+  `院系` varchar(255) DEFAULT NULL,
+  `入读年份` int(4) DEFAULT NULL,
+  `邮箱` varchar(255) DEFAULT NULL,
+  `电话` varchar(255) DEFAULT NULL,
+  `地址` varchar(255) DEFAULT NULL,
+  `工作单位` varchar(255) DEFAULT NULL,
+  `所属校友会名称` varchar(255) DEFAULT NULL,
+  `所属校友会地区` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `校友会`
+--
+
+CREATE TABLE `校友会` (
+  `名称` varchar(255) NOT NULL,
+  `地区` varchar(255) NOT NULL,
+  `校友会联系方式` varchar(255) DEFAULT NULL,
+  `人数` int(10) NOT NULL DEFAULT 0,
+  `会长姓名` varchar(255) DEFAULT NULL,
+  `会长地址` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `校友会`
+--
+
+INSERT INTO `校友会` (`名称`, `地区`, `校友会联系方式`, `人数`, `会长姓名`, `会长地址`) VALUES
+('1', '1', '1', 0, '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `采访`
+--
+
+CREATE TABLE `采访` (
+  `标题` varchar(255) NOT NULL,
+  `时间` date NOT NULL,
+  `采访单位` varchar(255) DEFAULT NULL,
+  `采访记者` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `采访记录`
+--
+
+CREATE TABLE `采访记录` (
+  `被采访校友学号` int(10) NOT NULL,
+  `采访文章标题` varchar(255) NOT NULL,
+  `采访日期` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转储表的索引
+--
+
+--
+-- 表的索引 `个人捐赠`
+--
+ALTER TABLE `个人捐赠`
+  ADD PRIMARY KEY (`捐赠物`,`捐赠日期`,`捐赠校友学号`),
+  ADD KEY `捐赠人` (`捐赠校友学号`);
+
+--
+-- 表的索引 `会长`
+--
+ALTER TABLE `会长`
+  ADD PRIMARY KEY (`姓名`,`地址`);
+
+--
+-- 表的索引 `学生`
+--
+ALTER TABLE `学生`
+  ADD PRIMARY KEY (`学号`),
+  ADD KEY `密码` (`密码`,`姓名`,`院系`,`入读年份`,`邮箱`);
+
+--
+-- 表的索引 `捐赠新闻`
+--
+ALTER TABLE `捐赠新闻`
+  ADD PRIMARY KEY (`捐赠物`,`新闻标题`,`捐赠日期`,`新闻日期`),
+  ADD KEY `捐赠` (`捐赠物`,`捐赠日期`),
+  ADD KEY `新闻` (`新闻标题`,`新闻日期`);
+
+--
+-- 表的索引 `捐赠记录`
+--
+ALTER TABLE `捐赠记录`
+  ADD PRIMARY KEY (`捐赠物`,`捐赠日期`);
+
+--
+-- 表的索引 `新闻`
+--
+ALTER TABLE `新闻`
+  ADD PRIMARY KEY (`标题`,`时间`),
+  ADD KEY `标题` (`标题`),
+  ADD KEY `发布` (`发布校会名称`,`发布校会地区`);
+
+--
+-- 表的索引 `校会捐赠`
+--
+ALTER TABLE `校会捐赠`
+  ADD PRIMARY KEY (`捐赠物`,`捐赠日期`,`捐赠校会名称`,`捐赠校会地区`),
+  ADD KEY `捐赠校会信息` (`捐赠校会名称`,`捐赠校会地区`);
+
+--
+-- 表的索引 `校友`
+--
+ALTER TABLE `校友`
+  ADD PRIMARY KEY (`学号`),
+  ADD KEY `子类属性` (`密码`,`姓名`,`院系`,`入读年份`,`邮箱`),
+  ADD KEY `属于` (`所属校友会名称`,`所属校友会地区`);
+
+--
+-- 表的索引 `校友会`
+--
+ALTER TABLE `校友会`
+  ADD PRIMARY KEY (`名称`,`地区`),
+  ADD UNIQUE KEY `会长姓名` (`会长姓名`,`会长地址`);
+
+--
+-- 表的索引 `采访`
+--
+ALTER TABLE `采访`
+  ADD PRIMARY KEY (`标题`,`时间`);
+
+--
+-- 表的索引 `采访记录`
+--
+ALTER TABLE `采访记录`
+  ADD PRIMARY KEY (`被采访校友学号`,`采访文章标题`,`采访日期`),
+  ADD KEY `采访记录` (`采访文章标题`,`采访日期`);
+
+--
+-- 限制导出的表
+--
+
+--
+-- 限制表 `个人捐赠`
+--
+ALTER TABLE `个人捐赠`
+  ADD CONSTRAINT `捐赠人` FOREIGN KEY (`捐赠校友学号`) REFERENCES `校友` (`学号`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `记录` FOREIGN KEY (`捐赠物`,`捐赠日期`) REFERENCES `捐赠记录` (`捐赠物`, `捐赠日期`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `捐赠新闻`
+--
+ALTER TABLE `捐赠新闻`
+  ADD CONSTRAINT `捐赠` FOREIGN KEY (`捐赠物`,`捐赠日期`) REFERENCES `捐赠记录` (`捐赠物`, `捐赠日期`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `新闻` FOREIGN KEY (`新闻标题`,`新闻日期`) REFERENCES `新闻` (`标题`, `时间`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `新闻`
+--
+ALTER TABLE `新闻`
+  ADD CONSTRAINT `发布` FOREIGN KEY (`发布校会名称`,`发布校会地区`) REFERENCES `校友会` (`名称`, `地区`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `校会捐赠`
+--
+ALTER TABLE `校会捐赠`
+  ADD CONSTRAINT `捐赠校会信息` FOREIGN KEY (`捐赠校会名称`,`捐赠校会地区`) REFERENCES `校友会` (`名称`, `地区`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `捐赠记录` FOREIGN KEY (`捐赠物`,`捐赠日期`) REFERENCES `捐赠记录` (`捐赠物`, `捐赠日期`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `校友`
+--
+ALTER TABLE `校友`
+  ADD CONSTRAINT `子类` FOREIGN KEY (`学号`) REFERENCES `学生` (`学号`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `子类属性` FOREIGN KEY (`密码`,`姓名`,`院系`,`入读年份`,`邮箱`) REFERENCES `学生` (`密码`, `姓名`, `院系`, `入读年份`, `邮箱`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `属于` FOREIGN KEY (`所属校友会名称`,`所属校友会地区`) REFERENCES `校友会` (`名称`, `地区`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- 限制表 `校友会`
+--
+ALTER TABLE `校友会`
+  ADD CONSTRAINT `管理` FOREIGN KEY (`会长姓名`,`会长地址`) REFERENCES `会长` (`姓名`, `地址`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- 限制表 `采访`
+--
+ALTER TABLE `采访`
+  ADD CONSTRAINT `新闻子类` FOREIGN KEY (`标题`,`时间`) REFERENCES `新闻` (`标题`, `时间`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `采访记录`
+--
+ALTER TABLE `采访记录`
+  ADD CONSTRAINT `被采访` FOREIGN KEY (`被采访校友学号`) REFERENCES `校友` (`学号`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `采访记录` FOREIGN KEY (`采访文章标题`,`采访日期`) REFERENCES `采访` (`标题`, `时间`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
